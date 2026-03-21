@@ -144,7 +144,8 @@ img {
   transition: color 0.15s;
 }
 
-.nav-links a:hover {
+.nav-links a:hover,
+.nav-links a.is-active {
   color: var(--color-text);
 }
 

@@ -8,6 +8,16 @@ interface Props {
 
 const { title, description } = Astro.props as Props;
 const currentYear = new Date().getFullYear();
+const pathname = Astro.url.pathname;
+const normalizedPathname =
+  pathname !== "/" && pathname.endsWith("/") ? pathname.slice(0, -1) : pathname;
+
+function isNavActive(path: string): boolean {
+  return normalizedPathname === path || normalizedPathname.startsWith(`${path}/`);
+}
+
+const isArticlesActive = isNavActive("/articles");
+const isBlogActive = isNavActive("/blog");
 ---
 
 <!doctype html>
@@ -19,8 +29,24 @@ const currentYear = new Date().getFullYear();
         <a href="/" class="nav-brand">Joaquin Benegas</a>
         <div class="nav-actions">
           <ul class="nav-links">
-            <li><a href="/articles">Articles</a></li>
-            <li><a href="/blog">Blog</a></li>
+            <li>
+              <a
+                href="/articles"
+                class:list={{ "is-active": isArticlesActive }}
+                aria-current={isArticlesActive ? "page" : undefined}
+              >
+                Articles
+              </a>
+            </li>
+            <li>
+              <a
+                href="/blog"
+                class:list={{ "is-active": isBlogActive }}
+                aria-current={isBlogActive ? "page" : undefined}
+              >
+                Blog
+              </a>
+            </li>
             <li>
               <a href="https://github.com/JoaquinBenegas2" target="_blank" rel="noreferrer">
                 GitHub
