@@ -1,0 +1,45 @@
+---
+import { formatDate, formatSectionName, type SitePost } from "../utils/posts";
+
+interface Props {
+  sections: Record<string, SitePost[]>;
+  basePath: string;
+}
+
+const { sections, basePath } = Astro.props as Props;
+const sectionEntries = Object.entries(sections);
+
+function getPostHref(postId: string): string {
+  return `${basePath}/${postId}/`;
+}
+---
+
+<div class="sections-container">
+  {
+    sectionEntries.map(([section, sectionPosts]) => (
+      <div class="section-group">
+        <h2 class="section-group-title">{formatSectionName(section)}</h2>
+        <ul class="articles-list">
+          {sectionPosts.map((post) => (
+            <li class="article-card">
+              <a href={getPostHref(post.id)} class="article-card-title">
+                {post.data.title}
+              </a>
+              {post.data.description && (
+                <p class="article-card-description">{post.data.description}</p>
+              )}
+              <div class="article-card-meta">
+                <span class="article-card-date">
+                  {formatDate(post.data.date)}
+                </span>
+                {post.data.tags.map((tag) => (
+                  <span class="tag">{tag}</span>
+                ))}
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
+    ))
+  }
+</div>

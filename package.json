@@ -1,0 +1,15 @@
+{
+  "name": "joaquinbenegas2.github.io",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview"
+  },
+  "dependencies": {
+    "@astrojs/rss": "^4.0.17",
+    "@astrojs/sitemap": "^3.7.1",
+    "astro": "^6.0.4",
+    "mermaid": "^11.13.0"
+  }
+}

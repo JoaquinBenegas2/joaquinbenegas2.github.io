@@ -1,0 +1,27 @@
+---
+import { render } from "astro:content";
+import PostLayout from "../../layouts/PostLayout.astro";
+import { getPostStaticPaths, type SitePost } from "../../utils/posts";
+
+interface Props {
+  post: SitePost;
+}
+
+export async function getStaticPaths() {
+  return getPostStaticPaths("blog");
+}
+
+const { post } = Astro.props as Props;
+const { Content } = await render(post);
+---
+
+<PostLayout
+  title={post.data.title}
+  description={post.data.description}
+  date={post.data.date}
+  tags={post.data.tags}
+  backHref="/blog"
+  backLabel="Blog"
+>
+  <Content />
+</PostLayout>

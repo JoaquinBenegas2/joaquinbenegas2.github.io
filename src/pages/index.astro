@@ -1,0 +1,23 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const HOME_DESCRIPTION = "Personal notes on software engineering, AI, and distributed systems.";
+---
+
+<BaseLayout
+  title="Joaco Benegas"
+  description={HOME_DESCRIPTION}
+>
+  <div class="page-header page-header--home">
+    <h1>Joaco Benegas</h1>
+    <p>{HOME_DESCRIPTION}</p>
+  </div>
+
+  <div class="home-sections">
+    <p class="home-sections-label">Explore</p>
+    <ul class="home-nav-list">
+      <li><a href="/articles">Articles</a></li>
+      <li><a href="/blog">Blog</a></li>
+    </ul>
+  </div>
+</BaseLayout>

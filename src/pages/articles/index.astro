@@ -1,0 +1,18 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PostList from "../../components/PostList.astro";
+import { getPublishedPosts, groupBySections } from "../../utils/posts";
+
+const PAGE_TITLE = "Articles";
+const PAGE_DESCRIPTION = "Articles by Joaco Benegas";
+
+const posts = await getPublishedPosts("articles");
+const sections = groupBySections(posts);
+---
+
+<BaseLayout title={PAGE_TITLE} description={PAGE_DESCRIPTION}>
+  <div class="page-header page-header--sections">
+    <h1>{PAGE_TITLE}</h1>
+  </div>
+  <PostList {sections} basePath="/articles" />
+</BaseLayout>

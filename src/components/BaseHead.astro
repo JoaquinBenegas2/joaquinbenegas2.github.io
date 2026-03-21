@@ -1,0 +1,57 @@
+---
+import "../styles/global.css";
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const SITE_NAME = "Joaco Benegas";
+const FONTS_STYLESHEET =
+  "https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=JetBrains+Mono:wght@400;500&display=swap";
+
+const { title, description } = Astro.props as Props;
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+---
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="generator" content={Astro.generator} />
+  <script is:inline>
+    (function () {
+      const root = document.documentElement;
+      const storedTheme = localStorage.getItem("theme");
+      const prefersDarkTheme = window.matchMedia("(prefers-color-scheme: dark)").matches;
+      const initialTheme = storedTheme ?? (prefersDarkTheme ? "dark" : "light");
+
+      root.setAttribute("data-theme", initialTheme);
+      root.classList.add("no-transition");
+
+      requestAnimationFrame(function () {
+        requestAnimationFrame(function () {
+          root.classList.remove("no-transition");
+        });
+      });
+    })();
+  </script>
+
+  <title>{title}</title>
+  {description && <meta name="description" content={description} />}
+  <link rel="canonical" href={canonicalURL} />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content={SITE_NAME} />
+  <meta property="og:title" content={title} />
+  {description && <meta property="og:description" content={description} />}
+  <meta property="og:url" content={canonicalURL} />
+
+  <!-- Favicon -->
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href={FONTS_STYLESHEET} rel="stylesheet" />
+</head>
