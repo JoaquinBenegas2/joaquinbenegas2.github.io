@@ -4,7 +4,7 @@ import PostList from "../../components/PostList.astro";
 import { getPublishedPosts, groupBySections } from "../../utils/posts";
 
 const PAGE_TITLE = "Articles";
-const PAGE_DESCRIPTION = "Articles by Joaco Benegas";
+const PAGE_DESCRIPTION = "Articles by Joaquin Benegas";
 
 const posts = await getPublishedPosts("articles");
 const sections = groupBySections(posts);
