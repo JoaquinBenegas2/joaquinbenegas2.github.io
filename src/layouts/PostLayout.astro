@@ -3,7 +3,17 @@ import BaseLayout from "./BaseLayout.astro";
 import { formatLongDate } from "../utils/posts";
 
 interface Props {
-  title: string;
+  title?: string;
+  description?: string;
+  date?: Date;
+  tags?: string[];
+  backHref?: string;
+  backLabel?: string;
+  frontmatter?: PostFrontmatter;
+}
+
+interface PostFrontmatter {
+  title?: string;
   description?: string;
   date?: Date;
   tags?: string[];
@@ -12,13 +22,30 @@ interface Props {
 }
 
 const {
-  title,
-  description,
-  date,
-  tags,
-  backHref = "/articles",
-  backLabel = "Articles",
+  title: propTitle,
+  description: propDescription,
+  date: propDate,
+  tags: propTags,
+  backHref: propBackHref,
+  backLabel: propBackLabel,
+  frontmatter,
 } = Astro.props as Props;
+
+const {
+  title: frontmatterTitle,
+  description: frontmatterDescription,
+  date: frontmatterDate,
+  tags: frontmatterTags,
+  backHref: frontmatterBackHref,
+  backLabel: frontmatterBackLabel,
+} = frontmatter ?? {};
+
+const title = propTitle ?? frontmatterTitle ?? "";
+const description = propDescription ?? frontmatterDescription;
+const date = propDate ?? frontmatterDate;
+const tags = propTags ?? frontmatterTags;
+const backHref = propBackHref ?? frontmatterBackHref ?? "/articles";
+const backLabel = propBackLabel ?? frontmatterBackLabel ?? "Articles";
 
 const formattedDate = date ? formatLongDate(date) : undefined;
 const hasTags = Boolean(tags && tags.length > 0);
