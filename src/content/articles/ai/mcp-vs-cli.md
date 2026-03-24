@@ -21,6 +21,8 @@ But the discussion does not end there. Other factors are also mentioned, and the
 * Extensibility of features
 * Debugging and observability of operations
 
+---
+
 ## MCPs & CLIs
 
 **MCP (Model Context Protocol)** works as a standardized interface so agents can interact with external applications or services through defined *tools* with explicit contracts.
@@ -31,6 +33,8 @@ The difference between both approaches is not only technical, but also about pri
 
 * **MCP prioritizes control and standardization** over the capabilities an agent can use.
 * **CLI prioritizes flexibility and composition**, using tools that already exist and have been proven for years.
+
+---
 
 ## Context window usage
 
@@ -44,6 +48,8 @@ With **CLI**, instead, the agent has one specific capability: **executing comman
 
 This helps keep the context window cleaner and more focused on the problem being solved.
 
+---
+
 ## Security & Control
 
 One area where **MCP has a clear advantage** is control over the capabilities available to the agent.
@@ -53,6 +59,8 @@ By exposing explicit tools, it is possible to limit exactly what actions the mod
 It is true that something similar can be achieved using custom CLIs or additional permission layers. However, when we give direct terminal access, in many cases we are giving the agent more control over the machine or server.
 
 That is why, in contexts where governance is critical, **MCP can be a much safer option**.
+
+---
 
 ## Developer Experience
 
@@ -80,6 +88,8 @@ Finally, I would like to briefly add two limitations that sometimes appear with 
 * **Lower natural composability:** it does not have the same fluent chaining and piping as CLIs.
 * **Dependency on server design:** if a tool is poorly designed or does not cover our needs, the agent is limited by that interface.
 
+---
+
 ## Conclusion
 
 Many of the problems people mention today about MCP are real. Probably many of us have experienced things like:
@@ -102,6 +112,8 @@ Also, when we do not have a CLI that covers a specific use case, MCP is the best
 On the other hand, for many daily development workflows (especially those related to coding, debugging, or automation), the **CLI-based approach is still extremely powerful and practical**.
 
 That is why, more than choosing one option over the other, the most realistic strategy is to **combine both approaches** depending on the context.
+
+---
 
 ## References
 

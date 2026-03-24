@@ -16,7 +16,7 @@ In a monolithic system, components communicate through in-memory calls and the d
 
 In practical terms, Service Discovery decouples *who* a service is from *where* it is running.
 
-***
+---
 
 ## Definition and Conceptual Overview
 
@@ -31,7 +31,7 @@ Behind these capabilities typically lies a **Service Registry**, which maintains
 
 This registry becomes the authoritative source of truth for service locations inside the system.
 
-***
+---
 
 ## Core Architecture
 
@@ -44,7 +44,7 @@ A typical Service Discovery architecture includes the following elements:
 
 The exact arrangement of these components depends on the chosen discovery pattern, but the fundamental goal remains the same: route traffic only to healthy and available service instances.
 
-***
+---
 
 ## Internal Workflow
 
@@ -83,13 +83,11 @@ sequenceDiagram
 
 This diagram represents the simplest conceptual model. In real systems, caching, retries, timeouts, and fallback mechanisms are typically layered on top.
 
-***
+---
 
 ## Discovery Patterns
 
 There are two primary architectural approaches to Service Discovery: **client-side discovery** and **server-side discovery**. Both achieve the same goal but distribute responsibilities differently.
-
-***
 
 ### Client-Side Discovery
 
@@ -120,8 +118,6 @@ However, it introduces additional responsibilities in every client:
 
 This pattern is common when clients embed discovery-aware resolution and client-side load balancing.
 
-***
-
 ### Server-Side Discovery
 
 In server-side discovery, clients do not communicate with the registry directly. Instead, they call a stable endpoint such as a load balancer, API Gateway, or reverse proxy. That intermediary performs discovery and routing.
@@ -148,7 +144,7 @@ This centralizes routing logic and simplifies client implementations. It also en
 
 The trade-off is additional infrastructure that must be deployed and operated reliably.
 
-***
+---
 
 ## Registration Models
 
@@ -166,7 +162,7 @@ Here, a separate component registers instances on behalf of services. This is co
 
 The advantage is decoupling: services do not need to embed registry-specific logic. The trade-off is additional platform complexity.
 
-***
+---
 
 ## Service Discovery in Modern Platforms
 
@@ -178,21 +174,17 @@ From the developer's perspective, service discovery appears almost invisible: re
 
 This model resembles server-side discovery from an architectural perspective, although the DNS layer abstracts most of the complexity.
 
-***
-
 ### Dedicated service registries
 
 In registry-based approaches, services register with a dedicated registry (for example Consul, etcd, or a cloud vendor’s service registry). Consumers use discovery-aware clients or load balancers to resolve instances dynamically.
 
 These systems often rely on heartbeats and eviction policies to remove failed instances.
 
-***
-
 ### Consul and Service Mesh Extensions
 
 Tools like Consul extend service discovery with additional capabilities such as health checking, configuration management, and service mesh features. In such setups, service discovery becomes part of a broader control plane that also handles security and networking policies.
 
-***
+---
 
 ## Problems Service Discovery Solves
 
@@ -205,7 +197,7 @@ Service Discovery addresses fundamental challenges of distributed systems:
 
 Without Service Discovery, scaling and resilience would require manual configuration updates and constant coordination between teams.
 
-***
+---
 
 ## Technical Considerations and Trade-Offs
 
@@ -227,7 +219,7 @@ Simple heartbeats only confirm that a process is alive, not that it is functioni
 
 Service discovery exposes internal topology information. Access to registry data must be secured. In advanced architectures, Service Discovery is combined with mutual TLS and identity-based communication to ensure that dynamic endpoints remain secure.
 
-***
+---
 
 ## Architectural Positioning
 
@@ -241,7 +233,7 @@ Service Discovery is rarely implemented in isolation. It usually works in conjun
 
 In modern cloud-native architectures, it is considered a foundational capability rather than an optional feature.
 
-***
+---
 
 ## Conclusion
 

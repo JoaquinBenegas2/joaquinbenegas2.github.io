@@ -88,7 +88,7 @@ It is important to clarify that:
 
 Whether it is implemented using Spring, Node.js, Go, Nginx, or any other stack, the core responsibilities stay the same. The tools may change, but the problems it solves and the trade-offs it introduces remain consistent.
 
-***
+---
 
 ## Position in the architecture
 
@@ -126,7 +126,7 @@ From the system’s point of view, the gateway takes on an active role:
 
 By clearly separating clients from internal services, this setup allows backend services to change, scale, or be reorganized independently. At the same time, the external interface exposed to clients remains stable, predictable, and easier to maintain.
 
-***
+---
 
 ## Core responsibilities
 
@@ -208,7 +208,7 @@ To improve performance and reduce unnecessary load, the gateway may also provide
 > A key principle to keep in mind is that **the gateway should remain thin**.
 > Business rules and domain logic belong inside backend services, not in the gateway itself.
 
-***
+---
 
 ## What an API Gateway is NOT
 
@@ -223,7 +223,7 @@ An API Gateway is **not**:
 
 When an API Gateway is used to compensate for weak service design, the result is usually a fragile and overly complex system. Instead of simplifying the architecture, the gateway becomes a bottleneck that hides deeper issues and makes the system harder to evolve and maintain.
 
-***
+---
 
 ## Common ways to structure an API Gateway
 
@@ -327,7 +327,7 @@ There is no universally correct way to structure an API Gateway. Real-world syst
 
 The right choice depends on system scale, team structure, client diversity, and operational maturity.
 
-***
+---
 
 ## Relationship with other patterns
 
@@ -362,7 +362,7 @@ The API Gateway is often the first place where these concerns are applied, since
 
 Many of these mechanisms are also valuable inside the system, closer to the services themselves. Applying them at multiple layers helps create a more resilient architecture and avoids relying on a single component to handle all cross-cutting concerns.
 
-***
+---
 
 ## Trade-offs and operational costs
 
@@ -378,7 +378,7 @@ Some of the most important trade-offs are:
 
 Because the API Gateway sits directly in the critical path of all client requests, its reliability has a direct impact on the entire system. For this reason, it must be designed with strong availability guarantees, clear observability, and solid failure-handling strategies from the start.
 
-***
+---
 
 ## Conceptual request flow
 
@@ -405,7 +405,7 @@ sequenceDiagram
 
 In this flow, the client interacts only with the gateway, without direct knowledge of the backend services. The gateway takes responsibility for validating and processing the request, deciding where it should go, and optionally adapting the response before sending it back. This structure keeps clients simple while allowing the internal system to evolve independently.
 
-***
+---
 
 ## Best practices
 
@@ -421,7 +421,7 @@ A few widely accepted best practices are:
 
 These practices help ensure that the gateway supports the system instead of becoming a source of complexity.
 
-***
+---
 
 ## Common anti-patterns
 
@@ -436,7 +436,7 @@ Some frequent anti-patterns include:
 
 Avoiding these anti-patterns helps keep the gateway simple, reliable, and aligned with its intended role in the architecture.
 
-***
+---
 
 ## Summary
 
