@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">Joaquin Benegas</title>
+  <desc id="desc">Software Developer • Technical Blog</desc>
+  <rect width="1200" height="630" fill="#000000" />
+  <text x="600" y="290" fill="#ffffff" font-family="'Bricolage Grotesque', ui-sans-serif, system-ui, sans-serif" font-size="102" font-weight="700" letter-spacing="-1.5" text-anchor="middle">Joaquin Benegas</text>
+  <line x1="250" y1="336" x2="950" y2="336" stroke="#555555" stroke-opacity="0.7" stroke-width="2" stroke-linecap="round" />
+  <text x="600" y="390" fill="#ffffff" font-family="'Newsreader', Georgia, 'Times New Roman', serif" font-size="38" font-weight="400" opacity="0.92" text-anchor="middle">Software Developer<tspan dx="16">•</tspan><tspan dx="16">Technical Blog</tspan></text>
+</svg>
