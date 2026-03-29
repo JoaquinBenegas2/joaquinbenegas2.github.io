@@ -15,7 +15,7 @@ const FONTS_STYLESHEET =
 const { title, description } = Astro.props as Props;
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 const metaDescription = description ?? DEFAULT_DESCRIPTION;
-const ogImageURL = new URL("/og-image.svg", Astro.site).toString();
+const ogImageURL = new URL("/og-image.png", Astro.site).toString();
 ---
 
 <head>
@@ -51,6 +51,7 @@ const ogImageURL = new URL("/og-image.svg", Astro.site).toString();
   <meta property="og:description" content={metaDescription} />
   <meta property="og:url" content={canonicalURL} />
   <meta property="og:image" content={ogImageURL} />
+  <meta property="og:image:type" content="image/png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
   <meta property="og:image:alt" content="Joaquin Benegas - Blog" />
