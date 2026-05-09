@@ -6,6 +6,13 @@ interface Props {
   description?: string;
 }
 
+interface NavItem {
+  href: string;
+  label: string;
+  isActive?: boolean;
+  isExternal?: boolean;
+}
+
 const { title, description } = Astro.props as Props;
 const currentYear = new Date().getFullYear();
 const pathname = Astro.url.pathname;
@@ -18,6 +25,23 @@ function isNavActive(path: string): boolean {
 
 const isArticlesActive = isNavActive("/articles");
 const isBlogActive = isNavActive("/blog");
+const navItems: NavItem[] = [
+  {
+    href: "/articles",
+    label: "Articles",
+    isActive: isArticlesActive,
+  },
+  {
+    href: "/blog",
+    label: "Blog",
+    isActive: isBlogActive,
+  },
+  {
+    href: "https://github.com/JoaquinBenegas2",
+    label: "GitHub",
+    isExternal: true,
+  },
+];
 ---
 
 <!doctype html>
@@ -29,29 +53,21 @@ const isBlogActive = isNavActive("/blog");
         <a href="/" class="nav-brand">Joaquin Benegas</a>
         <div class="nav-actions">
           <ul class="nav-links">
-            <li>
-              <a
-                href="/articles"
-                class:list={{ "is-active": isArticlesActive }}
-                aria-current={isArticlesActive ? "page" : undefined}
-              >
-                Articles
-              </a>
-            </li>
-            <li>
-              <a
-                href="/blog"
-                class:list={{ "is-active": isBlogActive }}
-                aria-current={isBlogActive ? "page" : undefined}
-              >
-                Blog
-              </a>
-            </li>
-            <li>
-              <a href="https://github.com/JoaquinBenegas2" target="_blank" rel="noreferrer">
-                GitHub
-              </a>
-            </li>
+            {
+              navItems.map((item) => (
+                <li>
+                  <a
+                    href={item.href}
+                    class:list={{ "is-active": item.isActive }}
+                    aria-current={item.isActive ? "page" : undefined}
+                    target={item.isExternal ? "_blank" : undefined}
+                    rel={item.isExternal ? "noreferrer" : undefined}
+                  >
+                    {item.label}
+                  </a>
+                </li>
+              ))
+            }
           </ul>
           <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
             <span class="theme-icon theme-icon-sun">
@@ -73,9 +89,37 @@ const isBlogActive = isNavActive("/blog");
               </svg>
             </span>
           </button>
+          <button
+            class="nav-menu-toggle"
+            id="nav-menu-toggle"
+            type="button"
+            aria-label="Open navigation menu"
+            aria-controls="mobile-nav-links"
+            aria-expanded="false"
+          >
+            <span class="nav-menu-toggle__line"></span>
+            <span class="nav-menu-toggle__line"></span>
+          </button>
         </div>
       </nav>
     </header>
+    <ul class="mobile-nav-links" id="mobile-nav-links">
+      {
+        navItems.map((item) => (
+          <li>
+            <a
+              href={item.href}
+              class:list={{ "is-active": item.isActive }}
+              aria-current={item.isActive ? "page" : undefined}
+              target={item.isExternal ? "_blank" : undefined}
+              rel={item.isExternal ? "noreferrer" : undefined}
+            >
+              {item.label}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
     <main class="page-main">
       <slot />
     </main>
@@ -85,6 +129,10 @@ const isBlogActive = isNavActive("/blog");
     <script is:inline>
       const root = document.documentElement;
       const themeToggle = document.getElementById("theme-toggle");
+      const navMenuToggle = document.getElementById("nav-menu-toggle");
+      const mobileNavLinks = document.getElementById("mobile-nav-links");
+      const openNavLabel = "Open navigation menu";
+      const closeNavLabel = "Close navigation menu";
 
       function getNextTheme(currentTheme) {
         return currentTheme === "dark" ? "light" : "dark";
@@ -98,6 +146,38 @@ const isBlogActive = isNavActive("/blog");
       }
 
       themeToggle?.addEventListener("click", toggleTheme);
+
+      function setNavMenuOpen(isOpen) {
+        if (!navMenuToggle || !mobileNavLinks) {
+          return;
+        }
+
+        navMenuToggle.setAttribute("aria-expanded", String(isOpen));
+        navMenuToggle.setAttribute("aria-label", isOpen ? closeNavLabel : openNavLabel);
+        mobileNavLinks.classList.toggle("is-open", isOpen);
+      }
+
+      navMenuToggle?.addEventListener("click", function () {
+        const isOpen = navMenuToggle.getAttribute("aria-expanded") === "true";
+
+        setNavMenuOpen(!isOpen);
+      });
+
+      mobileNavLinks?.addEventListener("click", function (event) {
+        if (!(event.target instanceof Element) || !event.target.closest("a")) {
+          return;
+        }
+
+        setNavMenuOpen(false);
+      });
+
+      document.addEventListener("keydown", function (event) {
+        if (event.key !== "Escape") {
+          return;
+        }
+
+        setNavMenuOpen(false);
+      });
     </script>
     <script>
       import mermaid from "mermaid";
