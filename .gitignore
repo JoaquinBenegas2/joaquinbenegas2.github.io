@@ -40,4 +40,5 @@ Thumbs.db
 # local agent tooling
 .agents/
 .claude/
+.opencode/
 skills-lock.json
